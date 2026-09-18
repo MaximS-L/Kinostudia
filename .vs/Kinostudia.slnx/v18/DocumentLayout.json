@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\110 c#\\Kinostudia\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|c:\\110 c#\\kinostudia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|c:\\110 c#\\kinostudia\\csvrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|solutionrelative:csvrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|c:\\110 c#\\kinostudia\\inmemoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|solutionrelative:inmemoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|c:\\110 c#\\kinostudia\\film.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|solutionrelative:film.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|c:\\110 c#\\kinostudia\\director.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|solutionrelative:director.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|c:\\110 c#\\kinostudia\\studio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7910B055-C1CC-9ED9-5B29-86ED7742DDAC}|Kinostudia.csproj|solutionrelative:studio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\110 c#\\Kinostudia\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\110 c#\\Kinostudia\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAowJQAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T12:53:06.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Studio.cs",
+              "DocumentMoniker": "C:\\110 c#\\Kinostudia\\Studio.cs",
+              "RelativeDocumentMoniker": "Studio.cs",
+              "ToolTip": "C:\\110 c#\\Kinostudia\\Studio.cs",
+              "RelativeToolTip": "Studio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T12:54:23.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Director.cs",
+              "DocumentMoniker": "C:\\110 c#\\Kinostudia\\Director.cs",
+              "RelativeDocumentMoniker": "Director.cs",
+              "ToolTip": "C:\\110 c#\\Kinostudia\\Director.cs",
+              "RelativeToolTip": "Director.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T13:01:39.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Film.cs",
+              "DocumentMoniker": "C:\\110 c#\\Kinostudia\\Film.cs",
+              "RelativeDocumentMoniker": "Film.cs",
+              "ToolTip": "C:\\110 c#\\Kinostudia\\Film.cs",
+              "RelativeToolTip": "Film.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T13:04:39.53Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InMemoryRepository.cs",
+              "DocumentMoniker": "C:\\110 c#\\Kinostudia\\InMemoryRepository.cs",
+              "RelativeDocumentMoniker": "InMemoryRepository.cs",
+              "ToolTip": "C:\\110 c#\\Kinostudia\\InMemoryRepository.cs",
+              "RelativeToolTip": "InMemoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T13:10:10.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CsvRepository.cs",
+              "DocumentMoniker": "C:\\110 c#\\Kinostudia\\CsvRepository.cs",
+              "RelativeDocumentMoniker": "CsvRepository.cs",
+              "ToolTip": "C:\\110 c#\\Kinostudia\\CsvRepository.cs",
+              "RelativeToolTip": "CsvRepository.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAgwB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T13:43:07.773Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

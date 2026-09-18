@@ -1,0 +1,14 @@
+C:\110 c#\Kinostudia\bin\Debug\net10.0\Kinostudia.exe
+C:\110 c#\Kinostudia\bin\Debug\net10.0\Kinostudia.deps.json
+C:\110 c#\Kinostudia\bin\Debug\net10.0\Kinostudia.runtimeconfig.json
+C:\110 c#\Kinostudia\bin\Debug\net10.0\Kinostudia.dll
+C:\110 c#\Kinostudia\bin\Debug\net10.0\Kinostudia.pdb
+C:\110 c#\Kinostudia\obj\Debug\net10.0\Kinostudia.GeneratedMSBuildEditorConfig.editorconfig
+C:\110 c#\Kinostudia\obj\Debug\net10.0\Kinostudia.AssemblyInfoInputs.cache
+C:\110 c#\Kinostudia\obj\Debug\net10.0\Kinostudia.AssemblyInfo.cs
+C:\110 c#\Kinostudia\obj\Debug\net10.0\Kinostudia.csproj.CoreCompileInputs.cache
+C:\110 c#\Kinostudia\obj\Debug\net10.0\Kinostudia.dll
+C:\110 c#\Kinostudia\obj\Debug\net10.0\refint\Kinostudia.dll
+C:\110 c#\Kinostudia\obj\Debug\net10.0\Kinostudia.pdb
+C:\110 c#\Kinostudia\obj\Debug\net10.0\Kinostudia.genruntimeconfig.cache
+C:\110 c#\Kinostudia\obj\Debug\net10.0\ref\Kinostudia.dll
