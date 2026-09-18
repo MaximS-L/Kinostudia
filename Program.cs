@@ -41,26 +41,20 @@
                 return;
             }
 
-            // 1. Поиск режиссёра фильма "Начало" (берём первый фильм из списка)
             Director dir = FindDirector(films[0], directors);
             Console.WriteLine("1. FindDirector(\"" + films[0].Title + "\"): " + (dir != null ? dir.GetInfo() : "—"));
 
-            // 2. Поиск студии для этого же фильма
             Studio std = FindStudio(films[0], studios);
             Console.WriteLine("2. FindStudio(film \"" + films[0].Title + "\"): " + (std != null ? std.Info : "—"));
 
-            // 3. Общий бюджет всех фильмов
             Console.WriteLine("3. GetTotalBudget: " + GetTotalBudget(films).ToString("0") + " руб.");
 
-            // 4. Режиссёр с максимальным бюджетом (выводит сумму в скобках)
             string maxBudgetInfo = GetDirectorWithMaxBudget(films, directors);
             Console.WriteLine("4. GetDirectorWithMaxBudget: " + maxBudgetInfo);
 
-            // 5. Вывод всех твоих 5 фильмов на экран
             Console.WriteLine("5. PrintAllFilms:");
             PrintAllFilms(films, directors, studios);
 
-            // ДОБАВЛЯЕМ СТРОКУ "НЕ НАЙДЕНО" 
             Console.Write("\nНе найдено: FindDirector(\"Неизвестный фильм\") → ");
             Film fakeFilm = new Film { Title = "Неизвестный фильм", DirectorId = -99 };
             Director missingDir = FindDirector(fakeFilm, directors);
@@ -144,7 +138,6 @@
             if (films == null) return;
             foreach (var f in films)
             {
-                // Выводим абсолютно все фильмы из списка!
                 Director d = FindDirector(f, directors);
                 Studio s = FindStudio(f, studios);
 
