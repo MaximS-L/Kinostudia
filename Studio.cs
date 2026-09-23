@@ -1,34 +1,82 @@
-﻿namespace KinoStudia;
+﻿using System;
 
-/// <summary>
-/// Представляет киностудию.
-/// </summary>
-public class Studio
+namespace KinoStudia
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Country { get; set; }
-
     /// <summary>
-    /// Вычисляемое свойство: проверяет, является ли студия зарубежной.
+    /// Представляет киностудию.
     /// </summary>
-    public bool IsForeign
+    public class Studio
     {
-        get
+        /// <summary>
+        /// Уникальный идентификатор киностудии (Первичный ключ).
+        /// </summary>
+        public int Id { get; init; }
+
+        /// <summary>
+        /// Название киностудии.
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// Страна киностудии.
+        /// </summary>
+        public string Country { get; private set; }
+
+        /// <summary>
+        /// Признак зарубежной студии: страна не "Россия".
+        /// </summary>
+        public bool IsForeign => Country != "Россия";
+
+        /// <summary>
+        /// Конструктор по умолчанию.
+        /// </summary>
+        public Studio()
         {
-            return Country != "Россия";
         }
-    }
 
-    /// <summary>
-    /// Свойство возвращает информацию о студии.
-    /// </summary>
-    public string Info
-    {
-        get
+        /// <summary>
+        /// Конструктор с полным набором параметров и проверкой значений.
+        /// </summary>
+        public Studio(int id, string name, string country)
         {
-            return Name + " (" + Country + ")";
+            Id = ValidateId(id);
+            Name = ValidateName(name);
+            Country = ValidateCountry(country);
+        }
+
+        /// <summary>
+        /// Возвращает краткую информацию о студии.
+        /// </summary>
+        public string GetInfo()
+        {
+            return $"{Name} ({Country})";
+        }
+
+        private static int ValidateId(int value)
+        {
+            if (value < 0)
+            {
+                throw new ArgumentException("Идентификатор не может быть отрицательным.", nameof(Id));
+            }
+            return value;
+        }
+
+        private static string ValidateName(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException("Название не может быть пустым.", nameof(Name));
+            }
+            return value;
+        }
+
+        private static string ValidateCountry(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException("Страна не может быть пустой.", nameof(Country));
+            }
+            return value;
         }
     }
 }
-

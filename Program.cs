@@ -1,7 +1,13 @@
-﻿namespace KinoStudia
+﻿using System;
+using System.Collections.Generic;
+
+namespace KinoStudia
 {
     public class Program
     {
+        /// <summary>
+        /// Главный метод программы.
+        /// </summary>
         public static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -12,139 +18,264 @@
 
             Console.WriteLine("1 — InMemory, 2 — CSV");
             Console.Write("Ваш выбор: ");
-            string choice = Console.ReadLine();
 
-            switch (choice)
+            int choice;
+            if (!int.TryParse(Console.ReadLine(), out choice))
             {
-                case "1":
-                    InMemoryRepository memRepo = new InMemoryRepository();
-                    studios = memRepo.GetStudios();
-                    directors = memRepo.GetDirectors();
-                    films = memRepo.GetFilms();
-                    break;
-
-                case "2":
-                    CsvRepository csvRepo = new CsvRepository("C:\\data");
-                    studios = csvRepo.GetStudios();
-                    directors = csvRepo.GetDirectors();
-                    films = csvRepo.GetFilms();
-                    break;
-
-                default:
-                    Console.WriteLine("Неверный выбор");
-                    return;
-            }
-
-            if (films == null || films.Count == 0)
-            {
-                Console.WriteLine("Данные не найдены.");
+                Console.WriteLine("Неверный выбор");
                 return;
             }
 
-            Director dir = FindDirector(films[0], directors);
-            Console.WriteLine("1. FindDirector(\"" + films[0].Title + "\"): " + (dir != null ? dir.GetInfo() : "—"));
+            try
+            {
+                switch (choice)
+                {
+                    case 1:
+                        InMemoryRepository memRepo = new InMemoryRepository();
+                        studios = memRepo.GetStudios();
+                        directors = memRepo.GetDirectors();
+                        films = memRepo.GetFilms();
+                        break;
 
-            Studio std = FindStudio(films[0], studios);
-            Console.WriteLine("2. FindStudio(film \"" + films[0].Title + "\"): " + (std != null ? std.Info : "—"));
+                    case 2:
+                        CsvRepository csvRepo = new CsvRepository("C:\\data_baza");
+                        studios = csvRepo.GetStudios();
+                        directors = csvRepo.GetDirectors();
+                        films = csvRepo.GetFilms();
+                        break;
 
-            Console.WriteLine("3. GetTotalBudget: " + GetTotalBudget(films).ToString("0") + " руб.");
+                    default:
+                        throw new ArgumentException("Неверный выбор");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при чтении данных: {ex.Message}");
+                return;
+            }
 
-            string maxBudgetInfo = GetDirectorWithMaxBudget(films, directors);
-            Console.WriteLine("4. GetDirectorWithMaxBudget: " + maxBudgetInfo);
+            Console.WriteLine();
+
+            Director? foundDirector = FindDirectorByFilmTitle(films, directors, "Начало");
+            Console.WriteLine("1. FindDirector(\"Начало\"): " +
+                (foundDirector != null ? foundDirector.GetInfo() : "null"));
+
+            Studio? foundStudio = FindStudioByFilmTitle(films, studios, "Начало");
+            Console.WriteLine("2. FindStudio(film \"Начало\"): " +
+                (foundStudio != null ? foundStudio.GetInfo() : "null"));
+
+            decimal totalBudget = GetTotalBudget(films);
+            Console.WriteLine($"3. GetTotalBudget: {totalBudget.ToString("0")} руб.");
+
+            Dictionary<string, Film> maxBudgetPerStudio = GetMaxBudgetFilmPerStudio(films, studios);
+            Console.Write("4. GetMaxBudgetFilmPerStudio: ");
+            PrintMaxBudgetPerStudio(maxBudgetPerStudio, studios);
 
             Console.WriteLine("5. PrintAllFilms:");
             PrintAllFilms(films, directors, studios);
 
-            Console.Write("\nНе найдено: FindDirector(\"Неизвестный фильм\") → ");
-            Film fakeFilm = new Film { Title = "Неизвестный фильм", DirectorId = -99 };
-            Director missingDir = FindDirector(fakeFilm, directors);
-            if (missingDir == null)
-                Console.WriteLine("null");
-            else
-                Console.WriteLine(missingDir.FullName);
+            Console.WriteLine();
+            Director? notFound = FindDirectorByFilmTitle(films, directors, "Неизвестный фильм");
+            Console.WriteLine("Не найдено: FindDirector(\"Неизвестный фильм\") -> " +
+                (notFound != null ? notFound.GetInfo() : "null"));
 
             Console.WriteLine("\nНажмите любую клавишу для завершения...");
             Console.ReadKey();
         }
 
-        static Director FindDirector(Film film, List<Director> directors)
+
+        /// <summary>
+        /// Загружает согласованные данные из InMemoryRepository.
+        /// </summary>
+        private static (List<Studio>, List<Director>, List<Film>) LoadFromInMemory()
         {
-            if (film == null || directors == null) return null;
-            foreach (var d in directors)
+            InMemoryRepository repository = new InMemoryRepository();
+            return (repository.GetStudios(), repository.GetDirectors(), repository.GetFilms());
+        }
+
+        /// <summary>
+        /// Загружает и парсит данные из CsvRepository из указанной папки базы данных.
+        /// </summary>
+        private static (List<Studio>, List<Director>, List<Film>) LoadFromCsv()
+        {
+            CsvRepository repository = new CsvRepository("C:\\data_baza");
+            return (repository.GetStudios(), repository.GetDirectors(), repository.GetFilms());
+        }
+        /// <summary>
+        /// Находит режиссёра, снявшего фильм с заданным названием.
+        /// </summary>
+        public static Director? FindDirectorByFilmTitle(List<Film> films, List<Director> directors, string filmTitle)
+        {
+            if (films == null || directors == null) return null;
+
+            Film? foundFilm = null;
+            for (int i = 0; i < films.Count; i++)
             {
-                if (d.Id == film.DirectorId) return d;
+                if (films[i].Title == filmTitle)
+                {
+                    foundFilm = films[i];
+                    break;
+                }
             }
+
+            if (foundFilm == null) return null;
+
+            for (int i = 0; i < directors.Count; i++)
+            {
+                if (directors[i].Id == foundFilm.DirectorId)
+                {
+                    return directors[i];
+                }
+            }
+
             return null;
         }
 
-        static Studio FindStudio(Film film, List<Studio> studios)
+        /// <summary>
+        /// Находит киностудию, выпустившую фильм с заданным названием.
+        /// </summary>
+        public static Studio? FindStudioByFilmTitle(List<Film> films, List<Studio> studios, string filmTitle)
         {
-            if (film == null || studios == null) return null;
-            foreach (var s in studios)
+            if (films == null || studios == null) return null;
+
+            Film? foundFilm = null;
+            for (int i = 0; i < films.Count; i++)
             {
-                if (s.Id == film.StudioId) return s;
+                if (films[i].Title == filmTitle)
+                {
+                    foundFilm = films[i];
+                    break;
+                }
             }
+
+            if (foundFilm == null) return null;
+
+            for (int i = 0; i < studios.Count; i++)
+            {
+                if (studios[i].Id == foundFilm.StudioId)
+                {
+                    return studios[i];
+                }
+            }
+
             return null;
         }
 
-        static decimal GetTotalBudget(List<Film> films)
+        /// <summary>
+        /// Вычисляет суммарный финансовый бюджет абсолютно всех фильмов, загруженных в систему.
+        /// </summary>
+        public static decimal GetTotalBudget(List<Film> films)
         {
             if (films == null) return 0;
-            decimal total = 0;
-            foreach (var film in films)
+
+            decimal totalBudget = 0;
+            for (int i = 0; i < films.Count; i++)
             {
-                total += film.Budget;
+                totalBudget += films[i].Budget;
             }
-            return total;
+            return totalBudget;
         }
 
-        static string GetDirectorWithMaxBudget(List<Film> films, List<Director> directors)
+        /// <summary>
+        /// Находит по одному фильм с самым максимальным бюджетом для каждой киностудии.
+        /// </summary>
+        public static Dictionary<string, Film> GetMaxBudgetFilmPerStudio(List<Film> films, List<Studio> studios)
         {
-            if (films == null || directors == null || films.Count == 0 || directors.Count == 0) return "—";
+            Dictionary<string, Film> result = new Dictionary<string, Film>();
 
-            Dictionary<int, decimal> budgetMap = new Dictionary<int, decimal>();
-            foreach (var f in films)
+            if (films == null || studios == null) return result;
+
+            for (int i = 0; i < studios.Count; i++)
             {
-                if (budgetMap.ContainsKey(f.DirectorId))
-                    budgetMap[f.DirectorId] += f.Budget;
-                else
-                    budgetMap[f.DirectorId] = f.Budget;
-            }
+                Studio studio = studios[i];
+                Film? heaviest = null;
 
-            int bestDirectorId = -1;
-            decimal maxBudget = -1;
-
-            foreach (var kvp in budgetMap)
-            {
-                if (kvp.Value > maxBudget)
+                for (int j = 0; j < films.Count; j++)
                 {
-                    maxBudget = kvp.Value;
-                    bestDirectorId = kvp.Key;
+                    if (films[j].StudioId == studio.Id)
+                    {
+                        if (heaviest == null || films[j].Budget > heaviest.Budget)
+                        {
+                            heaviest = films[j];
+                        }
+                    }
+                }
+
+                if (heaviest != null)
+                {
+                    string resultKey = $"Студия {studio.Name}";
+                    result[resultKey] = heaviest;
                 }
             }
 
-            foreach (var d in directors)
-            {
-                if (d.Id == bestDirectorId)
-                {
-                    return d.FullName + " (" + maxBudget.ToString("0") + ")";
-                }
-            }
-            return "—";
+            return result;
         }
 
-        static void PrintAllFilms(List<Film> films, List<Director> directors, List<Studio> studios)
+        /// <summary>
+        /// Выводит результаты группировки GetMaxBudgetFilmPerStudio на экран консоли в одну строку через запятую.
+        /// </summary>>
+        private static void PrintMaxBudgetPerStudio(Dictionary<string, Film> maxBudgetPerStudio, List<Studio> studios)
         {
-            if (films == null) return;
-            foreach (var f in films)
+            if (maxBudgetPerStudio == null || studios == null) return;
+
+            List<string> parts = new List<string>();
+
+            for (int i = 0; i < studios.Count; i++)
             {
-                Director d = FindDirector(f, directors);
-                Studio s = FindStudio(f, studios);
+                string resultKey = $"Студия {studios[i].Name}";
+                if (maxBudgetPerStudio.ContainsKey(resultKey))
+                {
+                    Film film = maxBudgetPerStudio[resultKey];
+                    parts.Add($"{studios[i].Name} — {film.Title} ({film.Budget.ToString("0")})");
+                }
+            }
 
-                string directorName = d != null ? d.FullName : "—";
-                string studioName = s != null ? s.Name : "—";
+            for (int i = 0; i < parts.Count; i++)
+            {
+                Console.Write(parts[i]);
+                if (i < parts.Count - 1)
+                {
+                    Console.Write(", ");
+                }
+            }
+            Console.WriteLine();
+        }
 
-                Console.WriteLine(f.GetInfo() + " — режиссёр " + directorName + ", студия \"" + studioName + "\"");
+        /// <summary>
+        /// Печатает сводный информационный отчёт о каждом фильме базы данных, автоматически подтягивая ФИО режиссёра и название студии.
+        /// </summary>
+        public static void PrintAllFilms(List<Film> films, List<Director> directors, List<Studio> studios)
+        {
+            if (films == null || directors == null || studios == null) return;
+
+            for (int i = 0; i < films.Count; i++)
+            {
+                Film film = films[i];
+
+                Director? director = null;
+                for (int j = 0; j < directors.Count; j++)
+                {
+                    if (directors[j].Id == film.DirectorId)
+                    {
+                        director = directors[j];
+                        break;
+                    }
+                }
+
+                Studio? studio = null;
+                for (int j = 0; j < studios.Count; j++)
+                {
+                    if (studios[j].Id == film.StudioId)
+                    {
+                        studio = studios[j];
+                        break;
+                    }
+                }
+
+                string directorName = director != null ? director.FullName : "—";
+                string studioName = studio != null ? studio.Name : "—";
+
+                Console.WriteLine($"{film.GetInfo()} — режиссёр {directorName}, студия {studioName}");
             }
         }
     }

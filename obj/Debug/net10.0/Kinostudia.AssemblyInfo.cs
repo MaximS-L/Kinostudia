@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kinostudia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6bbfcd4134fadb91cd796a4ac5b9c5519283b55")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kinostudia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kinostudia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
